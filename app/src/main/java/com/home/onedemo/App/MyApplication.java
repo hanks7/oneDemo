@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.StrictMode;
 import android.support.multidex.MultiDex;
-import android.widget.Toast;
 
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
@@ -40,40 +39,40 @@ public class MyApplication extends Application {
         Beta.betaPatchListener = new BetaPatchListener() {
             @Override
             public void onPatchReceived(String patchFileUrl) {
-                Toast.makeText(getApplicationContext(), patchFileUrl, Toast.LENGTH_SHORT).show();
+                UToast.showText(patchFileUrl);
             }
 
             @Override
             public void onDownloadReceived(long savedLength, long totalLength) {
-                Toast.makeText(getApplicationContext(), String.format(Locale.getDefault(),
+                UToast.showText(String.format(Locale.getDefault(),
                         "%s %d%%",
                         Beta.strNotificationDownloading,
-                        (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)), Toast.LENGTH_SHORT).show();
+                        (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)));
             }
 
             @Override
             public void onDownloadSuccess(String patchFilePath) {
-                Toast.makeText(getApplicationContext(), patchFilePath, Toast.LENGTH_SHORT).show();
+                UToast.showText( patchFilePath);
             }
 
             @Override
             public void onDownloadFailure(String msg) {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                UToast.showText( msg);
             }
 
             @Override
             public void onApplySuccess(String msg) {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                UToast.showText( msg);
             }
 
             @Override
             public void onApplyFailure(String msg) {
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                UToast.showText( msg);
             }
 
             @Override
             public void onPatchRollback() {
-                Toast.makeText(getApplicationContext(), "onPatchRollback", Toast.LENGTH_SHORT).show();
+                UToast.showText( "onPatchRollback");
             }
         };
         Bugly.init(context, appId, isDebug);
